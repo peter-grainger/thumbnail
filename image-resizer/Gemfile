@@ -1,0 +1,5 @@
+source 'https://rubygems.org' do
+  gem 'mini_magick'
+  gem 'aws-sdk-s3', '~> 1'
+end
+
