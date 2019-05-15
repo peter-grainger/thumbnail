@@ -3,8 +3,8 @@ require "mini_magick"
 
 class UploadedFile
     def self.from_s3(bucket_name, object_name)
-        Aws.config.update(region: 'eu-west-2')
-        s3 = Aws::S3::Resource.new()
+        client = Aws::S3::Client.new(region: 'eu-west-2')
+        s3 = Aws::S3::Resource.new(client: client)
         object = s3.bucket(bucket_name).object(object_name)
 
         tmp_file_name = "/tmp/#{object_name}"
@@ -25,7 +25,8 @@ class UploadedFile
     end
 
     def upload_file(target_bucket, target_object)
-        s3 = Aws::S3::Resource.new()
-        object = s3.bucket(target_bucket).object(target_object).upload_file(@resized_tmp_file)
+        client = Aws::S3::Client.new(region: 'eu-west-2')
+        s3 = Aws::S3::Resource.new(client: client)        
+        s3.bucket(target_bucket).object(target_object).upload_file(@resized_tmp_file)
     end
 end

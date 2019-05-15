@@ -10,6 +10,6 @@ class ImageHandler
 
     file = UploadedFile.from_s3(bucket_name, object_name)
     file.resize "100x100"
-    file.upload_file("resized-your-images", "resized_" + event["s3"]["object"]["key"] )
+    file.upload_file("cert-lab-resized-images-3", "resized_" + event["s3"]["object"]["key"] )
   end
 end
